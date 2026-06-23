@@ -1,12 +1,13 @@
 import app from "./app";
+import config from "./config";
 import { prisma } from "./lib/prisma";
 
-const PORT = 5000;
+const PORT = config.port;
 
 async function main(){
     try {
         await prisma.$connect();
-        console.log("Prisma client connect")
+        console.log("Successfully Connect to database")
         app.listen(PORT,()=>{
             console.log(`Server is Running on Port ${PORT}`)
         })
