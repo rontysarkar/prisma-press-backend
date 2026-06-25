@@ -3,6 +3,9 @@ import { userService } from "./user.service";
 import httpStatus from "http-status";
 import { catchAsync } from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
+import jwt, { JwtPayload } from 'jsonwebtoken'
+import config from "../../config";
+import { jwtUtils } from "../../utils/jwt";
 
 
 
@@ -21,6 +24,21 @@ const registerUser = catchAsync(async (req: Request, res: Response, next: NextFu
 
 });
 
+const getProfile = catchAsync(async(req:Request,res:Response,next:NextFunction)=>{
+
+  
+  const user =await userService.getProfileFromDb(req.user?.id as string);
+
+  sendResponse(res,{
+    success:true,
+    statusCode:httpStatus.OK,
+    message:"Profile get successfully",
+    data:user
+  })
+  
+})
+
 export const userController = {
   registerUser,
+  getProfile,
 };
