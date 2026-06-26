@@ -12,5 +12,6 @@ const router = Router();
 
 router.post("/register", userController.registerUser);
 router.get("/me", auth("AUTHOR", "ADMIN", "USER"), userController.getProfile);
+router.put('/my-profile',auth('ADMIN','USER'),userController.updateProfile);
 
 export const userRoutes = router;
