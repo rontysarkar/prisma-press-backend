@@ -40,7 +40,11 @@ export const auth = (...requiredRole: Role[]) => {
         config.jwt_access_secret,
       );
 
-      const { email, role, id, name } = verifiedToken as JwtPayload;
+      if(!verifiedToken.success){
+        throw new Error("Token invalid")
+      }
+
+      const { email, role, id, name } = verifiedToken.data as JwtPayload;
 
 
       if (requiredRole.length && !requiredRole.includes(role)) {
