@@ -7,11 +7,11 @@ import { Role } from "../../../generated/prisma/enums";
 const router = Router();
 
 
-router.post('/',auth(Role.ADMIN,Role.USER),postController.createPost);
+router.post('/',auth(Role.ADMIN,Role.USER,Role.AUTHOR),postController.createPost);
 router.get('/',postController.getAllPost);
-router.get('/:postId',postController.getPostById);
 router.get('/my-posts',auth(Role.ADMIN,Role.USER),postController.getMyPosts);
 router.get('/status',auth(Role.ADMIN),postController.getPostStatus)
+router.get('/:postId',postController.getPostById);
 router.patch('/:postId',auth(Role.USER,Role.ADMIN),postController.updatePost);
 router.delete('/:postId',auth(Role.USER,Role.ADMIN),postController.deletePost);
 
